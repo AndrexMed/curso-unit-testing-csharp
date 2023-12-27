@@ -17,51 +17,53 @@
             Assert.Equal("Hello Platzi", result); //Comprobar
         }
 
-        [Fact]
-        public void IsPalindrome_True()
+        [Theory]
+        [InlineData("oro", true)]
+        [InlineData("Hello", false)]
+        public void IsPalindrome_Test(string word, bool expected)
         {
             //Arrage
             var stringOp = new StringOperations();
 
             //Act
-            var result = stringOp.IsPalindrome("Ama");
+            var result = stringOp.IsPalindrome(word);
 
-            //Assert
-            Assert.True(result);
+            if(expected)
+            {
+                Assert.True(result);
+            } else
+            {
+                Assert.False(result);
+            }
         }
 
-        [Fact]
-        public void IsPalindrome_False()
-        {
-            //Arrage
-            var stringOp = new StringOperations();
-
-            //Act
-            var result = stringOp.IsPalindrome("hello");
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact]
-        public void RemoveWhitespace()
+        [Theory]
+        [InlineData("Phrase number one", "Phrasenumberone")]
+        public void RemoveWhitespace(string phrase, string expected)
         {
             var stringOp = new StringOperations();
 
-            var result = stringOp.RemoveWhitespace("Test remove spaces");
+            var result = stringOp.RemoveWhitespace(phrase);
 
-            Assert.DoesNotContain(" ", result);  
+            //Assert.DoesNotContain(" ", result);
+            Assert.Equal(result, expected);
         }
 
-        [Fact]
-        public void QuantintyInWords()
+        [Theory]
+        [InlineData("car", 10, "diez cars")]
+        [InlineData("country", 4, "cuatro countries")]
+        [InlineData("dog", 1, "uno dog")]
+        [InlineData("tree", 100, "cien trees")]
+        public void QuantintyInWordsTest(string input, int quantity, string expected)
         {
             var stringOp = new StringOperations();
 
-            var result = stringOp.QuantintyInWords("cat", 5);
+            var result = stringOp.QuantintyInWords(input, quantity);
 
-            Assert.StartsWith("cinco", result);
-            Assert.Contains("cat", result);
+            Assert.NotEmpty(result);
+            Assert.Equal(expected, result);
+            //Assert.StartsWith("cinco", result);
+            //Assert.Contains("cat", result);
         }
 
         [Fact]
@@ -89,6 +91,17 @@
             var stringOp = new StringOperations();
 
             Assert.ThrowsAny<ArgumentOutOfRangeException>(() => stringOp.TruncateString("hola", -1));
+        }
+
+        [Theory]
+        [InlineData("V", 5)] // V = RomanNumber, 5 = result
+        public void FromRomanToNumber(string romanNumber, int expected)
+        {
+            var stringOp = new StringOperations();
+
+            var result = stringOp.FromRomanToNumber(romanNumber);
+
+            Assert.Equal(expected, result);
         }
     }
 }
