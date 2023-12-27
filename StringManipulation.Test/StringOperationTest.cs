@@ -1,4 +1,8 @@
-﻿namespace StringManipulation.Test
+﻿using Castle.Core.Logging;
+using Microsoft.Extensions.Logging;
+using Moq;
+
+namespace StringManipulation.Test
 {
     public class StringOperationTest
     {
@@ -95,13 +99,26 @@
 
         [Theory]
         [InlineData("V", 5)] // V = RomanNumber, 5 = result
-        public void FromRomanToNumber(string romanNumber, int expected)
+        public void FromRomanToNumberTest(string romanNumber, int expected)
         {
             var stringOp = new StringOperations();
 
             var result = stringOp.FromRomanToNumber(romanNumber);
 
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void CountOccurrencesTest()
+        {
+            var mockLogger = new Mock<ILogger<StringOperations>>();
+
+            var stringOp = new StringOperations(mockLogger.Object);
+            
+
+            var result = stringOp.CountOccurrences("Hello platzi", 'l');
+
+            Assert.Equal(result, 3);
         }
     }
 }
