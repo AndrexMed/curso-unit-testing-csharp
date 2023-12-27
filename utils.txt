@@ -1,0 +1,24 @@
+Iniciando con Coverlet:
+dotnet test /p:CollectCoverage=true
+
+genera xml:
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+
+genera el coverlet omitiendo las clases o metodos que contengan el atributo: ExcludeFromCodecovertage:
+dotnet test /p:CollectCoverage=true /p:ExcludeByAttribute="ExcludeFromCodeCoverage"
+
+
+para generar el front del reporte
+reportgenerator "-reports:coverage.cobertura.xml” "-targetdir:coverage-report" -reporttypes:html;
+
+
+En caso de algun error: (instalacion global)
+debes instalar report generator como herramienta global https://github.com/danielpalme/ReportGenerator
+
+
+dotnet tool install -g dotnet-reportgenerator-globaltool
+
+dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+
+dotnet new tool-manifest
+dotnet tool install dotnet-reportgenerator-globaltool
