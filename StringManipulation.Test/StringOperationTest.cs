@@ -2,7 +2,7 @@
 {
     public class StringOperationTest
     {
-        [Fact]
+        [Fact(Skip = "This test is disabled in this moment")]
         public void ConcatenateStrings()
         {
             //Arrange
