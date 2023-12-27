@@ -42,5 +42,53 @@
             //Assert
             Assert.False(result);
         }
+
+        [Fact]
+        public void RemoveWhitespace()
+        {
+            var stringOp = new StringOperations();
+
+            var result = stringOp.RemoveWhitespace("Test remove spaces");
+
+            Assert.DoesNotContain(" ", result);  
+        }
+
+        [Fact]
+        public void QuantintyInWords()
+        {
+            var stringOp = new StringOperations();
+
+            var result = stringOp.QuantintyInWords("cat", 5);
+
+            Assert.StartsWith("cinco", result);
+            Assert.Contains("cat", result);
+        }
+
+        [Fact]
+        public void GetStringLength()
+        {
+            var stringOp = new StringOperations();
+
+            var result = stringOp.GetStringLength("Platzi");
+
+            Assert.True(result > 0);
+        }
+
+        [Fact]
+        public void GetStringLength_Exception()
+        {
+            var stringOp = new StringOperations();
+
+            Assert.ThrowsAny<ArgumentNullException>(() => stringOp.GetStringLength(null));
+           
+        }
+
+        [Fact]
+        public void TruncateString()
+        {
+            var stringOp = new StringOperations();
+
+            Assert.ThrowsAny<ArgumentOutOfRangeException>(() => stringOp.TruncateString("hola", -1));
+        }
     }
 }
